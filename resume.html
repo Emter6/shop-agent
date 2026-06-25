@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人简历 - Java开发工程师</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+            background: #f5f5f5;
+        }
+
+        .resume {
+            display: flex;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar {
+            width: 8px;
+            background: transparent;
+        }
+
+        .main {
+            flex: 1;
+            padding: 4px 15px;
+        }
+
+        /* 头部 */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 6px;
+            padding-bottom: 6px;
+            border-bottom: 2px solid rgb(50, 60, 79);
+        }
+
+        .info h1 {
+            font-size: 20px;
+            color: rgb(50, 60, 79);
+            margin-bottom: 0;
+        }
+
+        .info p {
+            color: #666;
+            font-size: 11px;
+            margin-top: 1px;
+        }
+
+        .photo img {
+            width: 70px;
+            height: 85px;
+            border-radius: 3px;
+            object-fit: cover;
+            object-position: center top;
+        }
+
+        .photo {
+            margin-top: -10px;
+        }
+
+        /* 联系方式 */
+        .contact {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .contact-item img {
+            width: 13px;
+            height: 13px;
+            margin-right: 5px;
+        }
+
+        /* 区块标题 */
+        .section {
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgb(50, 60, 79);
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .section-title .icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgb(50, 60, 79);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 8px;
+        }
+
+        .section-title .icon img {
+            width: 12px;
+            height: 12px;
+        }
+
+        .section-title h2 {
+            font-size: 14px;
+            color: #333;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* 教育背景 */
+        .edu-item {
+            padding-left: 15px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+
+        .edu-item::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 5px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgb(50, 60, 79);
+        }
+
+        .edu-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3px;
+        }
+
+        .edu-header .school {
+            font-weight: bold;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .edu-header .major {
+            color: #666;
+            font-size: 12px;
+            flex: 1;
+            text-align: center;
+        }
+
+        .edu-header .time {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .edu-major {
+            color: #666;
+            font-size: 12px;
+        }
+
+        .edu-courses {
+            color: #888;
+            font-size: 12px;
+            margin-top: 3px;
+            line-height: 1.35;
+        }
+
+        /* 专业技能 */
+        .skills-list {
+            padding-left: 15px;
+            margin: 0;
+        }
+
+        .skills-list li {
+            position: relative;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+
+        .skills-list li::before {
+            content: '•';
+            position: absolute;
+            left: -10px;
+            color: rgb(50, 60, 79);
+            font-size: 10px;
+        }
+
+        /* 项目经历 */
+        .project-item {
+            margin-bottom: 12px;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .project-header .name {
+            font-weight: bold;
+            color: #333;
+            font-size: 13px;
+        }
+
+        .project-header .link {
+            color: #666;
+            font-size: 11px;
+            flex: 1;
+            text-align: center;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 0 10px;
+        }
+
+        .project-header .time {
+            color: #999;
+            font-size: 11px;
+        }
+
+        .project-desc {
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+
+        .project-tech {
+            color: rgb(50, 60, 79);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .project-detail-title {
+            font-weight: bold;
+            color: #333;
+            font-size: 12px;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+
+        .project-detail-title::before {
+            content: '';
+            position: absolute;
+            left: 3px;
+            top: 6px;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: rgb(50, 60, 79);
+        }
+
+        /* 项目职责 */
+        .project-responsibility {
+            padding-left: 15px;
+        }
+
+        .project-responsibility li {
+            position: relative;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 4px;
+            line-height: 1.35;
+        }
+
+        .project-responsibility li::before {
+            content: '•';
+            position: absolute;
+            left: -10px;
+            color: rgb(50, 60, 79);
+            font-size: 10px;
+        }
+
+        .project-highlight {
+            background: #f5f6f7;
+            padding: 8px 12px;
+            border-radius: 3px;
+            margin-top: 8px;
+        }
+
+        .project-highlight strong {
+            color: rgb(50, 60, 79);
+            font-size: 12px;
+        }
+
+        /* 荣誉证书 */
+        .awards-list {
+            padding-left: 15px;
+            margin: 0;
+        }
+
+        .awards-list li {
+            position: relative;
+            color: #666;
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .awards-list li::before {
+            content: '•';
+            position: absolute;
+            left: -10px;
+            color: rgb(50, 60, 79);
+            font-size: 10px;
+        }
+
+        /* 打印样式 */
+        @media print {
+            body {
+                background: white;
+                margin: 0;
+                padding: 0;
+            }
+
+            .resume {
+                width: 210mm;
+                min-height: 297mm;
+                margin: 0;
+                box-shadow: none;
+                display: block;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main {
+                padding: 10mm 12mm;
+            }
+
+            @page {
+                size: A4;
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="resume">
+        <div class="sidebar"></div>
+        <div class="main">
+            <!-- 头部 -->
+            <div class="header">
+                <div class="info">
+                    <h1>朱丽珍</h1>
+                    <p>应聘职位：JAVA开发实习生</p>
+                </div>
+                <div class="contact">
+                    <div class="contact-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z'/%3E%3C/svg%3E"
+                            alt="电话">
+                        <span>18750079159</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z'/%3E%3Cpolyline points='22,6 12,13 2,6'/%3E%3C/svg%3E"
+                            alt="邮箱">
+                        <span>3051198714@qq.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpath d='M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z'/%3E%3Ccircle cx='12' cy='10' r='3'/%3E%3C/svg%3E"
+                            alt="地址">
+                        <span>福建莆田</span>
+                    </div>
+                </div>
+                <div class="photo">
+                    <img src="photo1.jpg" alt="个人照片">
+                </div>
+            </div>
+
+            <!-- 教育背景 -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="icon">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='2'%3E%3Cpath d='M12 2L2 7l10 5 10-5-10-5z'/%3E%3Cpath d='M2 17l10 5 10-5'/%3E%3Cpath d='M2 12l10 5 10-5'/%3E%3C/svg%3E"
+                            alt="教育">
+                    </div>
+                    <h2>教育背景</h2>
+                </div>
+                <div class="edu-item">
+                    <div class="edu-header">
+                        <span class="school">莆田学院</span>
+                        <span class="major">软件工程 | 本科学位</span>
+                        <span class="time">2023.09 ~ 2027.06</span>
+                    </div>
+                    <div class="edu-courses">主修课程：Java 核心技术、数据结构与算法、数据库系统原理、计算机网络原理、操作系统、软件工程导论、Spring Boot
+                        框架开发、面向对象程序设计、软件测试技术、MySQL 数据库应用等</div>
+                </div>
+                <div style="padding-left: 18px; margin-top: 10px;">
+                    <div style="font-weight: bold; color: #333; font-size: 13px; margin-bottom: 6px;">荣誉证书</div>
+                    <div style="display: flex; gap: 30px; color: #666; font-size: 12px;">
+                        <span>• 英语六级证书</span>
+                        <span>• 国家励志奖学金</span>
+                        <span>• 校级一等奖学金</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 专业技能 -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="icon">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='2'%3E%3Crect x='3' y='3' width='18' height='18' rx='2' ry='2'/%3E%3Cline x1='9' y1='9' x2='15' y2='9'/%3E%3Cline x1='9' y1='15' x2='15' y2='15'/%3E%3C/svg%3E"
+                            alt="技能">
+                    </div>
+                    <h2>专业技能</h2>
+                </div>
+                <ul class="skills-list">
+                    <li><strong>熟练掌握 Java
+                            核心技术</strong>，熟悉<strong>集合框架</strong>、<strong>多线程与并发编程</strong>（线程池、锁机制、CAS）、<strong>JVM
+                            内存模型与垃圾回收机制</strong></li>
+                    <li><strong>熟练掌握 Spring Boot、Spring Cloud（Nacos、Gateway、OpenFeign）、Spring
+                            MVC、MyBatis-Plus</strong>等主流开发框架，理解<strong>IOC、AOP、自动装配原理与微服务架构设计</strong></li>
+                    <li><strong>熟练使用 Redis</strong>，掌握<strong>String、Hash、List、Set、Sorted
+                            Set、BitMap、GEO、Stream、向量搜索（VECTOR）</strong>等数据结构的使用场景，具备<strong>缓存穿透/击穿/雪崩</strong>的实战解决经验，熟悉<strong>分布式锁与
+                            Lua 脚本原子操作</strong></li>
+                    <li><strong>熟悉 MySQL 数据库</strong>，了解<strong>索引优化、事务隔离级别、MVCC 机制</strong>，具备<strong>SQL 调优经验</strong>
+                    </li>
+                    <li><strong>熟悉 Linux 常用命令与 Shell 脚本</strong>，能独立进行线上日志排查与问题定位</li>
+                    <li><strong>了解 AI Agent 开发</strong>，有<strong>LangGraph 工作流编排</strong>、<strong></strong>Function
+                        Calling</strong>工具调用、<strong>RAG 检索增强生成</strong>、<strong>Embedding
+                            与向量检索（Qdrant/Redis）</strong>的实践经验</li>
+                    <li><strong>了解 Docker 容器化部署、Nginx 反向代理与负载均衡</strong>的基本配置</li>
+                </ul>
+            </div>
+
+            <!-- 项目经历 -->
+            <div class="section">
+                <div class="section-title">
+                    <div class="icon">
+                        <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white' stroke='white' stroke-width='2'%3E%3Cpath d='M13 2L3 14h9l-1 8 10-12h-9l1-8z'/%3E%3C/svg%3E"
+                            alt="项目">
+                    </div>
+                    <h2>项目经历</h2>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <span class="name">微邻智服</span>
+                        <span class="link">https://github.com/Emter6/CommunityHub.git</span>
+                        <span class="time">后端开发 | 2026.02-2026.04</span>
+                    </div>
+                    <div class="project-detail-title">项目简介</div>
+                    <div class="project-desc">
+                        一款基于<strong>微服务架构</strong>的本地生活服务平台，采用<strong>Nacos</strong>作为服务注册与配置中心，<strong>Spring Cloud
+                            Gateway</strong>作为统一网关，实现<strong>用户服务、商铺服务、优惠券服务、订单服务、社交服务</strong>等业务模块的拆分与独立部署。项目以
+                        <strong>Redis</strong> 为核心缓存与数据存储组件，重点解决了<strong>高并发场景</strong>下的性能与一致性问题。
+                    </div>
+                    <div class="project-tech">
+                        <strong>技术栈：</strong><strong>Spring Boot</strong>、<strong>Spring Cloud
+                            Alibaba</strong>、<strong>Nacos</strong>、<strong>Spring Cloud
+                            Gateway</strong>、<strong>OpenFeign</strong>、<strong>MyBatis-Plus</strong>、<strong>Redis</strong>、<strong>MySQL</strong>、<strong>Redisson</strong>
+                    </div>
+                    <div class="project-detail-title">项目职责</div>
+                    <ul class="project-responsibility">
+                        <li><strong>微服务架构设计</strong>：将单体应用拆分为<strong>6个独立微服务</strong>（用户、商铺、优惠券、订单、社交、Agent），通过<strong>Nacos</strong>实现服务注册与发现，<strong>Spring
+                                Cloud Gateway</strong>统一路由与认证</li>
+                        <li><strong>网关认证体系</strong>：设计<strong>双拦截器架构</strong>（RefreshTokenInterceptor +
+                            LoginInterceptor），结合<strong>Redis
+                                Token存储</strong>实现<strong>无感刷新</strong>，用户登录态保持30分钟，白名单路径（登录/注册）直接放行</li>
+                        <li><strong>服务间通信</strong>：使用<strong>OpenFeign</strong>声明式服务调用，简化微服务间HTTP通信，实现<strong>用户服务</strong>与<strong>商铺服务</strong>的跨服务数据查询
+                        </li>
+                        <li><strong>缓存架构设计</strong>：针对热点数据设计<strong>三级缓存防护方案</strong>——<strong>穿透</strong>（空值缓存2分钟）、<strong>击穿</strong>（SETNX互斥锁/逻辑过期异步重建），封装通用
+                            <strong>CacheClient</strong> 工具类
+                        </li>
+                        <li><strong>秒杀系统</strong>：基于 <strong>Redis + Lua</strong>
+                            原子化执行库存校验→一人一单校验→库存扣减→用户入集合，<strong>Redisson
+                                分布式锁</strong>兜底保证一致性，<strong>Stream</strong>实现异步解耦</li>
+                    </ul>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-header">
+                        <span class="name">聊数通智能 Agent 系统</span>
+                        <span class="link">https://github.com/didilili/shopkeeper-agent</span>
+                        <span class="time">独立开发 | 2026.06-至今</span>
+                    </div>
+                    <div class="project-detail-title">项目简介</div>
+                    <div class="project-desc">基于 <strong>LangGraph</strong> 构建的电商数据分析智能
+                        Agent，用户以自然语言提问，系统自动完成<strong>关键词抽取→多路召回→SQL生成→校验执行→结果返回</strong>的完整闭环。采用
+                        <strong>多路混合检索策略</strong>（Qdrant 向量检索 + Elasticsearch 全文检索 + MySQL 结构化查询）提升 SQL 生成准确率，支持
+                        <strong>SSE 流式响应</strong>实时展示执行进度。
+                    </div>
+                    <div class="project-tech">
+                        <strong>技术栈：</strong><strong>FastAPI</strong>、<strong>LangGraph</strong>、<strong>Ollama（Qwen2.5-Coder）</strong>、<strong>Qdrant</strong>、<strong>Elasticsearch</strong>、<strong>MySQL</strong>、<strong>Embedding</strong>、<strong>SSE</strong>、<strong>Docker</strong>、<strong>React</strong>
+                    </div>
+                    <div class="project-detail-title">项目职责</div>
+                    <ul class="project-responsibility">
+                        <li><strong>LangGraph 工作流编排</strong>：设计
+                            <strong>9节点状态图</strong>（关键词抽取→三路并行召回→合并过滤→SQL生成→校验修正→执行），实现各节点职责解耦与状态自动传递
+                        </li>
+                        <li><strong>多路召回策略</strong>：<strong>Qdrant 向量检索</strong>召回字段/指标（Embedding
+                            语义匹配），<strong>Elasticsearch 全文检索</strong>召回字段取值，<strong>MySQL</strong>提供权威元数据，三路结果合并去重</li>
+                        <li><strong>SQL 生成闭环</strong>：<strong>LLM</strong>基于元数据上下文生成 SQL，<strong>EXPLAIN
+                                语法校验</strong>检查合法性，校验失败自动进入<strong>错误修正节点</strong>重新生成</li>
+                        <li><strong>SSE 流式输出</strong>：<strong>Server-Sent Events</strong>实时推送各节点执行状态，前端实时渲染，提升用户体验</li>
+                        <li><strong>元数据知识库构建</strong>：编写脚本从 MySQL 表结构自动构建 Qdrant 向量库与 ES 索引，支持增量更新</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
